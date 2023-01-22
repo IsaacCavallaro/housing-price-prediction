@@ -34,11 +34,21 @@ y_pred = model.predict(X_test)
 mse = mean_squared_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
-print("Mean Squared Error: ", mse)
-print("R-Squared Value: ", r2)
-
 # Use the model to predict the price of a house with 1000 sq.ft area
 house_area = 1000
 price = model.predict(np.array([[house_area]]))
 
+# Create a dictionary to store the results
+results = {"Mean Squared Error": mse, "R-Squared Value": r2, "Predicted Price of a House": price[0]}
+
+# Create a dataframe from the results dictionary
+results_df = pd.DataFrame(results, index=[0])
+
+# Export the dataframe to a CSV file
+results_df.to_csv("results.csv", index=False)
+
+# Print the results to the console
+print("Mean Squared Error: ", mse)
+print("R-Squared Value: ", r2)
 print(f"The predicted price of a house with {house_area} sq.ft area is ${price[0]:.2f}")
+
